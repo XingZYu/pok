@@ -110,6 +110,7 @@ typedef struct {
                                  for re-init) */
   uint8_t thread_main_proc;
   pok_partition_mode_t mode; /**< Current mode of the partition */
+  uint64_t next_activation;
 
 #ifdef POK_NEEDS_IO
   uint16_t io_min; /**< If the partition is allowed to perform I/O, the lower
@@ -118,6 +119,34 @@ typedef struct {
                       bound of the I/O */
 #endif
 
+#ifdef POK_NEEDS_SCHED_WRR
+  int current_weight; /**< Current weight in scheduling */
+  int current_index;  /**< Current index in scheduling */
+#endif
+
+#ifdef POK_NEEDS_PARTITIONS_SCHED
+  /*  
+  Globally used
+  */
+  uint64_t time_slot;
+  uint64_t remaining_time_slot;
+  /*
+    Used in RR
+  */
+  /*
+    Used in WRR
+  */
+  uint8_t weight; /**< Priority of the partition (unused at this time */
+  /*
+    Used in EDF
+  */
+  uint64_t absolute_deadline;
+  uint64_t deadline; /* Deadline of current partition */
+  /*
+    Used in FP
+   */
+  uint8_t priority; /**< Priority of the partition (unused at this time */
+#endif
   uint32_t lock_level;
   pok_start_condition_t start_condition;
 } pok_partition_t;

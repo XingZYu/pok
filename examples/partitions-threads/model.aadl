@@ -83,6 +83,7 @@ properties
    dispatch_Protocol => periodic;
    period            => 1ms;
    deadline          => 1ms;
+   compute_execution_time => 1ms .. 2ms;
 end mythread.impl2;
 
 subprogram thread_starting

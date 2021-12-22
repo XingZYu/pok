@@ -71,6 +71,9 @@ void pok_idle_thread_init() {
 
     pok_threads[IDLE_THREAD - i].period = INFINITE_TIME_VALUE;
     pok_threads[IDLE_THREAD - i].deadline = 0;
+#ifdef POK_NEEDS_SCHED_EDF
+    pok_threads[IDLE_THREAD - i].abs_deadline = 0;
+#endif
     pok_threads[IDLE_THREAD - i].time_capacity = INFINITE_TIME_VALUE;
     pok_threads[IDLE_THREAD - i].next_activation = 0;
     pok_threads[IDLE_THREAD - i].remaining_time_capacity = INFINITE_TIME_VALUE;
@@ -79,7 +82,12 @@ void pok_idle_thread_init() {
     pok_threads[IDLE_THREAD - i].processor_affinity = i;
     pok_threads[IDLE_THREAD - i].base_priority = pok_sched_get_priority_min(0);
     pok_threads[IDLE_THREAD - i].state = POK_STATE_RUNNABLE;
-
+#ifdef POK_NEEDS_SCHED_WRR
+    pok_threads[IDLE_THREAD - i].weight = 0;
+#endif
+#ifdef POK_NEEDS_SCHED_GTRR
+    pok_threads[IDLE_THREAD - i].remaining_timeslice = 0;
+#endif
     pok_threads[IDLE_THREAD - i].sp = pok_context_create(
         IDLE_THREAD - i, IDLE_STACK_SIZE, (uint32_t)pok_arch_idle);
   }
@@ -110,12 +118,22 @@ void pok_thread_init(void) {
   for (i = 0; i < POK_CONFIG_NB_THREADS; ++i) {
     pok_threads[i].period = INFINITE_TIME_VALUE;
     pok_threads[i].deadline = 0;
+#ifdef POK_NEEDS_SCHED_EDF
+    pok_threads[i].abs_deadline = 0;
+#endif
     pok_threads[i].time_capacity = INFINITE_TIME_VALUE;
     pok_threads[i].remaining_time_capacity = INFINITE_TIME_VALUE;
     pok_threads[i].next_activation = 0;
     pok_threads[i].wakeup_time = 0;
     pok_threads[i].state = POK_STATE_STOPPED;
+#ifdef POK_NEEDS_SCHED_WRR
+    pok_threads[i].weight = 0;
+#endif
+#ifdef POK_NEEDS_SCHED_GTRR
+    pok_threads[i].remaining_timeslice = POK_THREAD_SCHED_TIME_SLICE;
+#endif
     pok_threads[i].processor_affinity = 0;
+    pok_threads[i].priority = pok_sched_get_priority_max(0);
   }
   pok_idle_thread_init();
 }
@@ -164,9 +182,19 @@ pok_ret_t pok_partition_thread_create(uint32_t *thread_id,
     pok_threads[id].next_activation = attr->period;
   }
 
-  if (attr->deadline > 0) {
-    pok_threads[id].deadline = attr->deadline;
+#ifdef POK_NEEDS_SCHED_WRR
+  if (attr->period > 0) {
+    pok_threads[id].weight = attr->weight;
   }
+#endif
+
+#ifdef POK_NEEDS_SCHED_EDF
+  if (attr->deadline > 0) {
+    uint64_t now = POK_GETTICK();
+    pok_threads[id].deadline = attr->deadline;
+    pok_threads[id].abs_deadline = NS_INC * attr->deadline + now;
+  }
+#endif
 
   if (attr->time_capacity > 0) {
     pok_threads[id].time_capacity = attr->time_capacity;

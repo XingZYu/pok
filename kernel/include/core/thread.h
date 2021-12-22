@@ -29,6 +29,9 @@
 #define KERNEL_THREAD (POK_CONFIG_NB_THREADS - 1)
 #define IDLE_THREAD (POK_CONFIG_NB_THREADS - 2 - (uint32_t)(pok_get_proc_id()))
 
+#ifdef POK_NEEDS_SCHED_GTRR
+#define POK_THREAD_SCHED_TIME_SLICE 1
+#endif
 #define INFINITE_TIME_VALUE (-1)
 #define POK_THREAD_DEFAULT_TIME_CAPACITY INFINITE_TIME_VALUE
 
@@ -49,6 +52,9 @@ typedef struct {
   uint8_t priority;
   int64_t period;
   uint64_t deadline;
+#ifdef POK_NEEDS_SCHED_EDF
+  uint64_t abs_deadline;
+#endif
   int64_t time_capacity;
   int64_t remaining_time_capacity;
   uint64_t next_activation;
@@ -61,6 +67,12 @@ typedef struct {
   uint32_t init_stack_addr;
   uint8_t base_priority;
   uint8_t processor_affinity;
+#ifdef POK_NEEDS_SCHED_WRR
+  uint8_t weight; /**< Thread weight, used for wrr scheduler*/
+#endif
+#ifdef POK_NEEDS_SCHED_GTRR
+  uint8_t remaining_timeslice;
+#endif
   /* stack pointer
    * FIXME: this is platform-dependent code, we have to handle that ! */
 } pok_thread_t;
@@ -68,7 +80,8 @@ typedef struct {
 typedef struct {
   uint8_t priority; /* Priority is from 0 to 255 */
   uint8_t processor_affinity;
-  void *entry; /* entrypoint of the thread  */
+  uint8_t weight; /**< Thread weight, used for wrr scheduler*/
+  void *entry;    /* entrypoint of the thread  */
   uint64_t period;
   uint64_t deadline;
   uint64_t time_capacity;

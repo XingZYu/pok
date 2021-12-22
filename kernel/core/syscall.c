@@ -467,6 +467,7 @@ pok_ret_t pok_core_syscall(const pok_syscall_id_t syscall_id,
    * in kernel of partitions, calling the error handler.
    */
   default:
+    printf("Fuck you %d\n", syscall_id);
     pok_error_declare(POK_ERROR_KIND_ILLEGAL_REQUEST);
     pok_sched_activate_error_thread();
     break;

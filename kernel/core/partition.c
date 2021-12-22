@@ -61,6 +61,26 @@ void pok_partition_setup_scheduler(const uint8_t pid) {
     pok_partitions[pid].sched_func = &pok_sched_part_static;
     break;
 #endif // POK_NEEDS_SCHED_STATIC
+#ifdef POK_NEEDS_SCHED_FP
+  case POK_SCHED_FP:
+    pok_partitions[pid].sched_func = &pok_sched_part_fp;
+    break;
+#endif // POK_NEEDS_SCHED_FP
+#ifdef POK_NEEDS_SCHED_EDF
+  case POK_SCHED_EDF:
+    pok_partitions[pid].sched_func = &pok_sched_part_edf;
+    break;
+#endif // POK_NEEDS_SCHED_EDF
+#ifdef POK_NEEDS_SCHED_WRR
+  case POK_SCHED_WRR:
+    pok_partitions[pid].sched_func = &pok_sched_part_wrr;
+    break;
+#endif // POK_NEEDS_SCHED_WRR
+#ifdef POK_NEEDS_SCHED_GTRR
+  case POK_SCHED_GLOBAL_TIMESLICE:
+    pok_partitions[pid].sched_func = &pok_sched_part_global_timeslice;
+    break;
+#endif // POK_NEEDS_SCHED_GTRR
 
     /*
      * Default scheduling algorithm is Round Robin.
@@ -184,6 +204,10 @@ pok_ret_t pok_partition_init() {
     }
 
 #ifdef POK_CONFIG_PARTITIONS_SCHEDULER
+#ifdef POK_NEEDS_SCHED_WRR
+    pok_partitions[i].current_index = -1;
+    pok_partitions[i].current_weight = 0;
+#endif
     pok_partitions[i].sched =
         ((pok_sched_t[])POK_CONFIG_PARTITIONS_SCHEDULER)[i];
 #endif
@@ -236,9 +260,36 @@ pok_ret_t pok_partition_init() {
 
     pok_partitions[i].lock_level = 0;
     pok_partitions[i].start_condition = NORMAL_START;
+    pok_partitions[i].next_activation =
+        pok_partitions[i].period + POK_GETTICK();
 
 #ifdef POK_NEEDS_INSTRUMENTATION
     pok_instrumentation_partition_archi(i);
+#endif
+
+/*
+ * Use partition scheduling
+ */
+#ifdef POK_NEEDS_PARTITIONS_SCHED
+    /* Read properties assigned to each partition through #define accordingly */
+    pok_partitions[i].priority = ((uint8_t[])POK_CONFIG_PARTITIONS_PRIORITY)[i];
+    pok_partitions[i].period =
+        ((uint64_t[])POK_CONFIG_PARTITIONS_PERIOD)[i] * NS_INC;
+    ;
+    pok_partitions[i].deadline =
+        ((uint64_t[])POK_CONFIG_PARTITIONS_DEADLINE)[i] * NS_INC;
+    pok_partitions[i].absolute_deadline =
+        pok_partitions[i].deadline + POK_GETTICK();
+    // printf("pok_partitions[%d].absolute_deadline is: %d\n", i,
+    // pok_partitions[i].absolute_deadline);
+    pok_partitions[i].time_slot = ((uint64_t[])POK_CONFIG_SCHEDULING_SLOTS)[i];
+    pok_partitions[i].remaining_time_slot =
+        ((uint64_t[])POK_CONFIG_SCHEDULING_SLOTS)[i];
+    pok_partitions[i].weight = ((uint64_t[])POK_CONFIG_PARTITIONS_WEIGHT)[i];
+#endif
+#ifdef POK_CONFIG_PARTITIONS_SCHEDULER
+    pok_partitions[i].sched =
+        ((pok_sched_t[])POK_CONFIG_PARTITIONS_SCHEDULER)[i];
 #endif
 
     pok_partition_setup_main_thread(i);

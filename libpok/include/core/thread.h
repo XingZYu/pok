@@ -28,13 +28,16 @@
 typedef struct {
   uint8_t priority; /* Priority is from 0 to 255 */
   uint8_t processor_affinity;
+  uint8_t weight;       /**< Thread weight, used for wrr scheduler*/
   void *entry; /* entrypoint of the thread  */
   uint64_t period;
   uint64_t deadline;
   uint64_t time_capacity;
   uint32_t stack_size;
-  uint32_t state;
 } pok_thread_attr_t;
+/*
+ * Attributes given to create a thread
+ */
 
 void pok_thread_init(void);
 pok_ret_t pok_thread_create(uint32_t *thread_id, const pok_thread_attr_t *attr);

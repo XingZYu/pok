@@ -1,0 +1,291 @@
+[QEMU] Start
+ OK 
+c[?7l[2J[0mSeaBIOS (version 1.13.0-1ubuntu1.1)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8CA10+07ECCA10 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Floppy...
+GRUB Loading stage2............[01;01H[2J
+    GNU GRUB  version 0.94  (639K lower / 129920K upper memory)[04;02H┌─────────────────────────────────────────────────────────────────────────┐[05;02H│[05;76H│[06;02H│[06;76H│[07;02H│[07;76H│[08;02H│[08;76H│[09;02H│[09;76H│[10;02H│[10;76H│[11;02H│[11;76H│[12;02H│[12;76H│[13;02H│[13;76H│[14;02H│[14;76H│[15;02H│[15;76H│[16;02H│[16;76H│[17;02H└─────────────────────────────────────────────────────────────────────────┘
+      Use the ↑ and ↓ keys to select which entry is highlighted.
+      Press enter [19;18H[19;19Hto boot the selected OS, 'e' to edit the
+      commands before booting, or 'c' for a command-line.[05;78H [05;03H[0;30;47m PolyORB Kernel                                                          [06;03H[0m                                                                         [07;03H                                                                         [08;03H                                                                         [09;03H                                                                         [10;03H                                                                         [11;03H                                                                         [12;03H                                                                         [13;03H                                                                         [14;03H                                                                         [15;03H                                                                         [16;03H                                                                         [16;78H [01;01H[2J  Booting 'PolyORB Kernel'
+
+root   (hd0,0)
+ Filesystem type is fat, partition type 0x6
+kernel /pok.elf
+   [Multiboot-elf, <0x100000:0x948c:0x0>, <0x10948c:0x7c:0x0>, <0x109508:0x66f6
+4:0x0>, shtab=0x1713e8, entry=0x1044cc
+Multiprocessing init
+Bus entry:
+Bus ID: 0
+Bus Type: PCI   
+
+Bus entry:
+Bus ID: 1
+Bus Type: ISA   
+
+IO APIC at fec00000
+LAPIC: b000c00 30b000c
+IO APIC interrupt:
+Type: 0
+Flags: 1
+Bus ID: 0
+Bus IRQ: 4
+APIC: 0
+IDINTin: 9
+
+IO APIC interrupt:
+Type: 0
+Flags: 1
+Bus ID: 0
+Bus IRQ: c
+APIC: 0
+IDINTin: b
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 0
+APIC: 0
+IDINTin: 2
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 1
+APIC: 0
+IDINTin: 1
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 3
+APIC: 0
+IDINTin: 3
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 4
+APIC: 0
+IDINTin: 4
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 6
+APIC: 0
+IDINTin: 6
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 7
+APIC: 0
+IDINTin: 7
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: 8
+APIC: 0
+IDINTin: 8
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: c
+APIC: 0
+IDINTin: c
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: d
+APIC: 0
+IDINTin: d
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: e
+APIC: 0
+IDINTin: e
+
+IO APIC interrupt:
+Type: 0
+Flags: 0
+Bus ID: 1
+Bus IRQ: f
+APIC: 0
+IDINTin: f
+
+LAPIC interrupt:
+Type: 3
+Flags: 0
+Bus ID: 1
+Bus IRQ: 0
+APIC: 0
+IDINTin: 0
+
+LAPIC interrupt:
+Type: 1
+Flags: 0
+Bus ID: 1
+Bus IRQ: 0
+APIC: ff
+IDINTin: 1
+
+OD 11, NS_INC 9219, NS_QUAT 1000000
+Partition Scheduler: FP
+Initialize partition: 3
+POK kernel initialized
+[P4] Enter 0
+[P4] pok_thread_create (1) return=0
+--- Scheduling partition: 2
+[P3] Enter 0
+[P3] pok_thread_create (1) return=0
+--- Scheduling partition: 1
+[P2] Enter 0
+[P2] pok_thread_create (1) return=0
+--- Scheduling partition: 0
+[P1] Enter 0
+[P1] pok_thread_create (1) return=0
+P1T1: Start Working
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0
+--- Scheduling partition: 3
+--- Scheduling partition: 2
+--- Scheduling partition: 1
+--- Scheduling partition: 0

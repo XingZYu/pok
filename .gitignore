@@ -18,6 +18,7 @@ __pycache__/
 *.bin
 *.mk
 .depend
+.vscode
 sizes.c
 venv
 testsuite/unitary_tests/report.xml
@@ -26,3 +27,5 @@ generated-code/
 GPATH
 GRTAGS
 GTAGS
+REQUIREMENTES.md
+examples/pok-test

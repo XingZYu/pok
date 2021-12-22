@@ -19,6 +19,7 @@
 #include <core/sched.h>
 #include <core/time.h>
 #include <errno.h>
+#include <libc.h>
 
 #include "pic.h"
 
@@ -65,6 +66,12 @@ pok_ret_t pok_x86_qemu_timer_init() {
   // Sanity checks
   assert(OSCILLATOR_DIVISOR <= 65536);
   assert(NS_QUANTUM >= NS_INCREMENT);
+#ifdef POK_NEEDS_DEBUG
+  printf("OD %d, NS_INC %d, NS_QUAT %d\n",
+          OSCILLATOR_DIVISOR,
+          NS_INCREMENT,
+          NS_QUANTUM);
+#endif
 
   outb(PIT_BASE + 3, 0x34); /* Channel0, rate generator, Set LSB then MSB */
   outb(PIT_BASE, OSCILLATOR_DIVISOR & 0xff);
